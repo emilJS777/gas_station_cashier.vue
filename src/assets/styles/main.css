@@ -1,0 +1,120 @@
+.auth{
+    display: grid;
+    grid-template-columns: 1.1fr 4fr;
+    grid-gap: 2em;
+    /*padding-left: 120px;*/
+    padding-right: 120px;
+}
+.view  .title{
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+*{
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+li{
+    list-style: none;
+}
+
+/*TABLE */
+.table_standard .thead{
+    background-color: #F5F7FA;
+    font-weight: 600;
+    color: #343434;
+    font-size: 14px;
+}
+.table_standard .tbody{
+    font-size: 14px;
+    font-weight: 400;
+}
+.table_standard .tbody .tr:nth-child(odd){
+    background-color: #EDF0F2;
+}
+.table_standard .tbody .tr:nth-child(even){
+    background-color: #F5F7FA;
+}
+.table_standard .tr{
+    display: grid;
+    padding: 15px;
+}
+
+.table_standard .tbody .menu{
+    position: relative;
+    width: 14px;
+    background-image: url("@/assets/icons/table-menu.svg");
+    background-size: 23px;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+.table_standard .tbody .menu ul{
+    width: max-content;
+    position: absolute;
+    top: -10px;
+    right: 5px;
+    z-index: 3;
+    /*background-color: #EBECED;*/
+    padding: 0;
+    display: none;
+    animation-duration: .3s;
+    animation-name: table-menu;
+    overflow: hidden;
+}
+
+.table_standard .tbody .menu:hover > ul{
+    display: block;
+}
+.table_standard .tbody .menu ul li{
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #EBECED;
+}
+.table_standard .tbody .menu ul li:last-child{
+    margin-bottom: 0;
+}
+.table_standard .tbody .menu ul li a{
+    color: inherit;
+    font-size: inherit;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    grid-gap: 10px;
+}
+/*TABLE END *******/
+
+
+/*INPUT STANDARD/*/
+.form_standard{
+    display: grid;
+    grid-template-columns: 1fr;
+}
+.form_standard label{
+    margin-bottom: 5px;
+    color: #343434;
+    font-weight: 600;
+    font-size: 14px;
+}
+.form_standard input{
+    background-color: #F5F7FA;
+    border: 0;
+    padding: 10px;
+    font-size: 15px;
+    width: 240px;
+}
+/*INPUT STANDARD END *********/
+/*BUTTON STANDARD*/
+.btn_standard{
+    background-color: #374C98;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 53px;
+    border: 0;
+}
+/*BUTTON STANDARD END ********/
