@@ -40,6 +40,7 @@
         top: 0;
         animation-duration: 5s;
         animation-name: close-modal;
+        z-index: 999;
     }
     @keyframes close-modal {
         0%{

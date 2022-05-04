@@ -1,10 +1,11 @@
 <template>
     <div class="home">
         <h3 class="title">Ընդհանուր գործիքներ</h3>
+
+        <v-cashier-change class="cashier_change"/>
         <div class="station_blocks">
             <v-station-blocks />
         </div>
-
         <div class="table_block">
             <v-station-data-table/>
         </div>
@@ -14,9 +15,11 @@
 <script>
     import VStationBlocks from "@/components/station/v-station-blocks";
     import VStationDataTable from "@/components/station/v-station-data-table";
+    import VCashierChange from "@/components/v-cashier-change";
     export default {
         name: "v-home",
-        components: {VStationDataTable, VStationBlocks},
+        components: {VCashierChange, VStationDataTable, VStationBlocks},
+        props: ['profile'],
         data(){
             return{
                 stations: []
@@ -43,6 +46,11 @@
 </script>
 
 <style scoped>
+    .cashier_change{
+        position: absolute;
+        top: 20px;
+        right: 50px;
+    }
     .station_blocks{
         display: grid;
         align-items: center;
