@@ -62,6 +62,9 @@
                 this.$store.dispatch("station_data/GET_STATION_DATA_BY_ID", station_data_id).then(data => {
                     if(data.success)
                         this.station_data.push(data.obj)
+
+                    // SORT THE STATIONS BY NAME
+                    this.station_data.sort((a,b)=> (a.id > b.id ? -1 : 1))
                 })
             }
         }

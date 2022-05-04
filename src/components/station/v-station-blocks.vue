@@ -1,23 +1,22 @@
 <template>
-    <div class="station_block">
-        <span>{{this.name}}</span>
-        <img src="@/assets/icons/station.png" alt="">
-        <div><p>քաշը </p><span>{{this.data ? this.data.weight : 0.00}}</span></div>
+    <div class="station_block" v-for="station in this.stations" :key="station.id">
+        <span>{{station.name}}</span>
+        <img v-bind:class="station.data ? 'active' : ''" src="@/assets/icons/station.png" alt="">
+        <div><p>քաշը </p><span>{{station.data ? station.data.weight : 0.00}}</span></div>
 
-        <div><p>ճնշում </p><span>{{this.data ? this.data.pressure : 0.00}}</span></div>
+        <div><p>ճնշում </p><span>{{station.data ? station.data.pressure : 0.00}}</span></div>
 
-        <div><p>ջերմաստիճանը </p><span>{{this.data ? this.data.temperature : 0.00}}</span></div>
+        <div><p>ջերմաստիճանը </p><span>{{station.data ? station.data.temperature : 0.00}}</span></div>
 
-        <div><p>գինը </p><span>{{this.data ? this.data.price : 0.00}}</span></div>
+        <div><p>գինը </p><span>{{station.data ? station.data.price : 0.00}}</span></div>
 
-        <button v-if="data" @click="()=>this.$emit('clearData')">Cancel</button>
+        <button v-if="station.data" @click="this.clearData(station.id)">Cancel</button>
     </div>
 </template>
 
 <script>
     export default {
         name: "v-station-block",
-        props: ['data', 'name', 'weight', 'pressure', 'temperature', 'price'],
         data(){
             return{
                 stations: []
@@ -25,6 +24,15 @@
         },
         mounted(){
             this.get_station_ids()
+        },
+        // GET STATION DATA BY SOCKET
+        created(){
+            this.sockets.subscribe('stationData', (data) => {
+                console.log(data)
+                this.stations.forEach(station => {
+                    station.id === data.station_id ? station.data = data : ''
+                })
+            });
         },
         methods:{
             // STATIONS GET
@@ -38,9 +46,16 @@
                 this.$store.dispatch("station/GET_STATION_BY_ID", station_id).then(data => {
                     if(data.success)
                         this.stations.push(data.obj)
+
+                    // SORT THE STATIONS BY NAME
+                    this.stations.sort((a,b)=> (a.name > b.name ? 1 : -1))
                 })
+            },
+
+            // STATION DATA CLEAR
+            clearData(station_id){
+                this.stations.find(station => station_id === station.id ? station.data = null : '')
             }
-            //  STATIONS DATA GET
 
         }
     }
@@ -57,10 +72,6 @@
         color: #999;
         position: relative;
     }
-    .station_block > img{
-        width: 100px;
-        opacity: .3;
-    }
     .station_block > span{
         position: absolute;
         top: -20px;
@@ -76,6 +87,19 @@
     }
     .station_block > img{
         margin-bottom: 19px;
+        width: 100px;
+        opacity: .3;
+    }
+    .station_block > img.active{
+        animation: station-active 1s infinite;
+    }
+    @keyframes station-active {
+        from{
+            opacity: .6;
+        }
+        to{
+            opacity: .2;
+        }
     }
     p{
         padding-left: 15px;

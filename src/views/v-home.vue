@@ -2,11 +2,7 @@
     <div class="home">
         <h3 class="title">Ընդհանուր գործիքներ</h3>
         <div class="station_blocks">
-            <v-station-block v-for="station in this.stations" :key="station.id"
-                             @clearData="()=>station.data = null"
-                             :data="station.data"
-                             :name="station.name"
-            />
+            <v-station-blocks />
         </div>
 
         <div class="table_block">
@@ -16,11 +12,11 @@
 </template>
 
 <script>
-    import VStationBlock from "@/components/home/v-station-block";
+    import VStationBlocks from "@/components/station/v-station-blocks";
     import VStationDataTable from "@/components/station/v-station-data-table";
     export default {
         name: "v-home",
-        components: {VStationDataTable, VStationBlock},
+        components: {VStationDataTable, VStationBlocks},
         data(){
             return{
                 stations: []
@@ -32,22 +28,14 @@
                     data.obj.forEach(station_id => this.get_station_by_id(station_id))
             })
         },
-        created(){
-            this.sockets.subscribe('stationData', (data) => {
-                console.log(data)
-                this.stations.forEach(station => {
-                    station.id === data.station_id ? station.data = data : ''
-                })
-            });
-        },
+
         methods:{
             get_station_by_id(station_id){
                 this.$store.dispatch("station/GET_STATION_BY_ID", station_id).then(data => {
                     if(data.success)
                         this.stations.push(data.obj)
 
-                    // SORT THE STATIONS BY NAME
-                    this.stations.sort((a,b)=> (a.name > b.name ? 1 : -1))
+
                 })
             }
         }

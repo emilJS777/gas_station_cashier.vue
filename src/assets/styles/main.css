@@ -19,6 +19,9 @@ li{
 }
 
 /*TABLE */
+.table_standard{
+    margin-bottom: 20px;
+}
 .table_standard .thead{
     background-color: #F5F7FA;
     font-weight: 600;
