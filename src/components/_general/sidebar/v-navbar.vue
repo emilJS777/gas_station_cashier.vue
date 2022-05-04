@@ -7,25 +7,25 @@
                     Գլխավոր էջ
                 </router-link>
             </li>
-            <li>
-                <router-link to="#" @click="()=>this.firms_menu_open = !this.firms_menu_open"
-                             v-bind:class="this.$route.path === '/data' && !this.firms_menu_open">
+<!--            <li>-->
+<!--                <router-link to="#" @click="()=>this.firms_menu_open = !this.firms_menu_open"-->
+<!--                             v-bind:class="this.$route.path === '/data' && !this.firms_menu_open">-->
 
-                    <img src="@/assets/icons/firm-add.svg" alt="">
-                    Ընկերություններ
-                    <span v-bind:class="this.firms_menu_open ? 'open' : ''"> &#8249; </span>
+<!--                    <img src="@/assets/icons/firm-add.svg" alt="">-->
+<!--                    Ընկերություններ-->
+<!--                    <span v-bind:class="this.firms_menu_open ? 'open' : ''"> &#8249; </span>-->
 
-                </router-link>
+<!--                </router-link>-->
 
-                <ul v-if="this.firms_menu_open" class="sub_menu">
-                    <li v-bind:class="this.$route.path === '/data' ? 'active' : ''">
-                        <router-link to="/data">
-                            <i></i>
-                            Դիտել Ընկերությունները
-                        </router-link>
-                    </li>
-                </ul>
-            </li>
+<!--                <ul v-if="this.firms_menu_open" class="sub_menu">-->
+<!--                    <li v-bind:class="this.$route.path === '/data' ? 'active' : ''">-->
+<!--                        <router-link to="/data">-->
+<!--                            <i></i>-->
+<!--                            Դիտել Ընկերությունները-->
+<!--                        </router-link>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
         </ul>
     </div>
 </template>
