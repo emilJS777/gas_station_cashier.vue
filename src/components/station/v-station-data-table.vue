@@ -1,4 +1,9 @@
 <template>
+    <div class="date">
+        <datepicker v-model="this.picked"  placeholder="asdasd"/>
+        <button @click="get_station_data_ids">search</button>
+    </div>
+
     <div class="table_standard">
         <div class="thead">
             <div class="tr">
@@ -38,31 +43,42 @@
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
+    // import Datepicker from 'vue3-datepicker';
+    import Datepicker from 'vuejs3-datepicker';
     export default {
         name: "v-station-data-table",
+        components: {Datepicker},
         data(){
             return{
-                station_data: []
+                station_data: [],
+                picked: new Date()
             }
         },
         mounted(){
             this.get_station_data_ids()
+
         },
         methods:{
             get_station_data_ids(){
-                this.$store.dispatch("station_data/GET_STATION_DATA_IDS").then(data => {
+                this.station_data = []
+
+                const date = this.picked.toISOString().split('T')[0]
+
+                this.$store.dispatch("station_data/GET_STATION_DATA_IDS", date).then(data => {
                     if(data.success)
                         data.obj.forEach(station_data_id => this.get_station_data_by_id(station_data_id))
                 })
             },
             get_station_data_by_id(station_data_id){
                 this.$store.dispatch("station_data/GET_STATION_DATA_BY_ID", station_data_id).then(data => {
-                    if(data.success)
+                    if(data.success) {
+                        data.obj.creation_date = new Date(data.obj.creation_date).toISOString().split('T')[0]
                         this.station_data.push(data.obj)
-
+                    }
                     // SORT THE STATIONS BY NAME
                     this.station_data.sort((a,b)=> (a.id > b.id ? -1 : 1))
                 })
@@ -72,7 +88,22 @@
 </script>
 
 <style scoped>
+.date{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    grid-gap: 1em;
+    margin-bottom: 10px;
+}
+
 .tr{
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr .1fr;
 }
+button{
+  padding: 14px;
+    border-radius: 5px;
+    border: 0;
+    cursor: pointer;
+}
+
 </style>

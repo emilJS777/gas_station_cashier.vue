@@ -121,3 +121,22 @@ li{
     border: 0;
 }
 /*BUTTON STANDARD END ********/
+.vuejs3-datepicker{
+    position: relative;
+    width: 200px;
+    height:45px;
+
+}
+.vuejs3-datepicker__value{
+    border: 0 !important;
+    background-color: #f3f3f3;
+}
+#calendar-div{
+    position: absolute;
+}
+.vuejs3-datepicker__calendar{
+    top: 100%;
+}
+.vuejs3-datepicker__calendar-topbar, span.selected{
+    background-color: #374c98 !important;
+}
