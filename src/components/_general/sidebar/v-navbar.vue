@@ -1,8 +1,8 @@
 <template>
     <div class="navbar">
         <ul>
-            <li v-bind:class="this.$route.path === '/home' ? 'active' : ''">
-                <router-link to="/home" >
+            <li v-bind:class="this.$route.path === '/' ? 'active' : ''">
+                <router-link to="/" >
                     <img src="@/assets/icons/home.svg" alt="">
                     Գլխավոր էջ
                 </router-link>
