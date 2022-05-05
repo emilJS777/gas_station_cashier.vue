@@ -29,7 +29,7 @@
                 if(!data.success)
                     this.emitter.emit("msg-modal", data);
                 else
-                    this.$router.push({path: "/home"})
+                    this.$router.push({name: "home"})
             }
         }
     }

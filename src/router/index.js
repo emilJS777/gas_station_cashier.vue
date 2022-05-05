@@ -12,7 +12,7 @@ const routes = [
         component: () => import("@/views/v-signIn.vue"),
     },
     {
-        path: "/home",
+        path: "/",
         meta: {middleware: [authentication]},
         name: "home",
         component: () => import("@/views/v-home.vue"),
