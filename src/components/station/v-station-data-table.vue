@@ -12,7 +12,6 @@
                 <div class="th">ջերմաստիճանը</div>
                 <div class="th">գինը</div>
                 <div class="th">ստեղծման օր</div>
-                <div class="th"></div>
             </div>
         </div>
         <div class="tbody">
@@ -24,22 +23,22 @@
                 <div class="td">{{station_data.creation_date}}</div>
 
 
-                <div class="menu">
-                    <ul>
-                        <li>
-                            <router-link :to="'/home'">
-                                <img src="@/assets/icons/edit.png" alt="">
-                                Խմբագրել
-                            </router-link>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="@/assets/icons/delete.png" alt="">
-                                Հեռացնել
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+<!--                <div class="menu">-->
+<!--                    <ul>-->
+<!--                        <li>-->
+<!--                            <router-link :to="'/home'">-->
+<!--                                <img src="@/assets/icons/edit.png" alt="">-->
+<!--                                Խմբագրել-->
+<!--                            </router-link>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a href="#">-->
+<!--                                <img src="@/assets/icons/delete.png" alt="">-->
+<!--                                Հեռացնել-->
+<!--                            </a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
@@ -97,7 +96,7 @@
 }
 
 .tr{
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr .1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 button{
   padding: 14px;
@@ -105,5 +104,8 @@ button{
     border: 0;
     cursor: pointer;
 }
-
+.tbody{
+    max-height: 450px;
+    overflow: auto;
+}
 </style>

@@ -1,8 +1,10 @@
 <template>
-    <div class="sidebar">
-        <img src="@/assets/icons/toggle.svg" alt="">
-        <v-auth :profile="profile"/>
-        <v-navbar/>
+    <div class="sidebar_parent">
+        <div class="sidebar">
+            <img src="@/assets/icons/toggle.svg" alt="">
+            <v-auth :profile="profile"/>
+            <v-navbar/>
+        </div>
     </div>
 </template>
 
@@ -17,12 +19,19 @@
 </script>
 
 <style scoped>
+    .sidebar_parent{
+        position: relative;
+        min-height: 100vh;
+        height: 100%;
+        width: 400px;
+    }
     .sidebar{
         background-color: #374c98;
         top: 0;
         bottom: 0;
-        min-height: 100vh;
-        position: relative;
+        width: inherit;
+        height: 100%;
+        position: fixed;
     }
     *{
         color: #fff;
