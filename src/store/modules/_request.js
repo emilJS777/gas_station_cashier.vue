@@ -1,8 +1,8 @@
 import Axios from "axios";
 import store from "@/store";
 
-const api_url = "http://localhost:5001/api"
-// const api_url = "http://37.252.64.153:5001/api"
+// const api_url = "http://localhost:5001/api"
+const api_url = "http://37.252.64.153:5001/api"
 // const api_url = "http://192.168.0.10:5001/api"
 
 const REFRESH = (payload) => {
