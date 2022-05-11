@@ -119,8 +119,41 @@ li{
     cursor: pointer;
     padding: 10px 53px;
     border: 0;
+    width: max-content;
 }
+
 /*BUTTON STANDARD END ********/
+/*CHECKBOX STANDARD*/
+.check_box_block{
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    width: max-content;
+    background-color: #F5F7FA;
+    align-items: center;
+    justify-content: center;
+}
+.check_box_block input{
+    width: 60px;
+}
+.check_box_block label{
+    font-weight: initial;
+    width: 100px;
+    padding: 10px;
+    margin-bottom: 0;
+}
+.check_box_block > *{
+    cursor: pointer;
+}
+
+.white_btn{
+    background-color: #dde1e8;
+    color: #343434;
+    margin-top: 30px;
+    width: max-content;
+    margin-right: 5px;
+}
+
+/*CHECKBOX END *****/
 .vuejs3-datepicker{
     position: relative;
     width: 200px;

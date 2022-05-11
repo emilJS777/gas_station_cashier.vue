@@ -1,5 +1,6 @@
 <template>
     <div class="date">
+        <h4>ընդհանուր: {{this.total_data}}</h4>
         <datepicker v-model="this.picked"  placeholder="asdasd"/>
         <button @click="get_station_data_ids">search</button>
     </div>
@@ -51,8 +52,10 @@
     export default {
         name: "v-station-data-table",
         components: {Datepicker},
+        props: ['cash_box'],
         data(){
             return{
+                total_data: 0,
                 station_data: [],
                 picked: new Date()
             }
@@ -64,10 +67,11 @@
         methods:{
             get_station_data_ids(){
                 this.station_data = []
+                this.total_data = 0
 
                 const date = this.picked.toISOString().split('T')[0]
 
-                this.$store.dispatch("station_data/GET_STATION_DATA_IDS", date).then(data => {
+                this.$store.dispatch("station_data/GET_STATION_DATA_IDS", {date: date, cash_box_id: this.cash_box.id}).then(data => {
                     if(data.success)
                         data.obj.forEach(station_data_id => this.get_station_data_by_id(station_data_id))
                 })
@@ -77,6 +81,7 @@
                     if(data.success) {
                         data.obj.creation_date = new Date(data.obj.creation_date).toISOString().split('T')[0]
                         this.station_data.push(data.obj)
+                        this.total_data += parseFloat(data.obj.price)
                     }
                     // SORT THE STATIONS BY NAME
                     this.station_data.sort((a,b)=> (a.id > b.id ? -1 : 1))

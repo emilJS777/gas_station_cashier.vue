@@ -12,6 +12,18 @@ const routes = [
         component: () => import("@/views/v-signIn.vue"),
     },
     {
+        path: "/users",
+        meta: {middleware: [authentication]},
+        name: "users",
+        component: () => import("@/views/v-users.vue"),
+    },
+    {
+        path: "/roles",
+        meta: {middleware: [authentication]},
+        name: "roles",
+        component: () => import("@/views/v-roles.vue"),
+    },
+    {
         path: "/",
         meta: {middleware: [authentication]},
         name: "home",

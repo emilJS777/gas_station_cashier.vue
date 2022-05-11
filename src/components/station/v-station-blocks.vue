@@ -17,6 +17,7 @@
 <script>
     export default {
         name: "v-station-block",
+        props: ["cash_box"],
         data(){
             return{
                 stations: []
@@ -37,7 +38,7 @@
         methods:{
             // STATIONS GET
             get_station_ids(){
-                this.$store.dispatch("station/GET_STATION_IDS").then(data => {
+                this.$store.dispatch("station/GET_STATION_IDS", this.cash_box.id).then(data => {
                     if(data.success)
                         data.obj.forEach(station_id => this.get_station_by_id(station_id))
                 })

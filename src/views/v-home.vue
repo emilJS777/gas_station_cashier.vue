@@ -3,11 +3,16 @@
         <h3 class="title">Ընդհանուր գործիքներ</h3>
 
         <v-cashier-change class="cashier_change"/>
-        <div class="station_blocks">
-            <v-station-blocks />
-        </div>
-        <div class="table_block">
-            <v-station-data-table/>
+
+        <div class="cash_box_block" v-for="cash_box in cash_boxes" :key="cash_box.id">
+            <h1>{{cash_box.name}}</h1>
+
+            <div class="station_blocks">
+                <v-station-blocks :cash_box="cash_box"/>
+            </div>
+            <div class="table_block">
+                <v-station-data-table :cash_box="cash_box"/>
+            </div>
         </div>
     </div>
 </template>
@@ -22,23 +27,29 @@
         props: ['profile'],
         data(){
             return{
-                stations: []
+                cash_boxes: []
             }
         },
         mounted(){
-            this.$store.dispatch("station/GET_STATION_IDS").then(data => {
-                if(data.success)
-                    data.obj.forEach(station_id => this.get_station_by_id(station_id))
-            })
+            this.get_cash_box_ids()
         },
 
         methods:{
-            get_station_by_id(station_id){
-                this.$store.dispatch("station/GET_STATION_BY_ID", station_id).then(data => {
+            get_cash_box_ids(){
+                this.$store.dispatch("cash_box/GET_CASH_BOX_IDS").then(data => {
                     if(data.success)
-                        this.stations.push(data.obj)
+                        data.obj.forEach(cash_box_id => {
+                            this.get_cash_box_by_id(cash_box_id)
+                        })
+                })
+            },
+            get_cash_box_by_id(cash_box_id){
+                this.$store.dispatch("cash_box/GET_CASH_BOX_BY_ID", cash_box_id).then(data => {
+                    if(data.success)
+                        this.cash_boxes.push(data.obj)
 
-
+                    // SORT THE STATIONS BY NAME
+                    this.cash_boxes.sort((a,b)=> (a.id > b.id ? -1 : 1))
                 })
             }
         }
@@ -46,6 +57,15 @@
 </script>
 
 <style scoped>
+    .cash_box_block{
+        margin-bottom: 40px;
+    }
+    h1{
+        margin-bottom: 40px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        opacity: .6;
+    }
     .cashier_change{
         position: absolute;
         top: 20px;

@@ -17,7 +17,10 @@
 <script>
     export default {
         name: "v-auth",
-        props: ["profile"]
+        props: ["profile"],
+        mounted(){
+            this.$store.dispatch("permission/GET_ALL_PERMISSION")
+        }
     }
 </script>
 
