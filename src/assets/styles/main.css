@@ -256,6 +256,7 @@ h1.station_title{
     margin-bottom: 0;
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
-    opacity: .6;
+    color: #374c98;
+    cursor: pointer;
 }
 /*OTHER END *****/

@@ -19,10 +19,13 @@
                 <h4>ԳԱԶ մուծում: <span>{{this.payment_gas || '-'}}</span></h4>
                 <h4>ԼՈՒՅՍ մուծում: <span>{{this.payment_electricity || '-'}}</span></h4>
                 <h4>ՀԱՐԿԱ: <span>{{this.payment_gas || '-'}}</span></h4>
+            </div>
+
+            <div v-if="permissions.find(item => item.name === 'cash_box_data_get')">
+                <h4>hosan: <span>{{parseFloat(this.t / this.total_weight).toFixed(8)  === "NaN" ? 0 : parseFloat(this.t / this.total_weight).toFixed(8)}}</span></h4>
                 <h4>R: <span>{{this.r || '-'}}</span></h4>
                 <h4>S: <span>{{this.s || '-'}}</span></h4>
                 <h4>T: <span>{{this.t || '-'}}</span></h4>
-                <h4>hosan: <span>{{parseFloat(this.t / this.total_weight).toFixed(8)  === "NaN" ? 0 : parseFloat(this.t / this.total_weight).toFixed(8)}}</span></h4>
             </div>
         </div>
         <div class="date_filter_block">
@@ -297,7 +300,7 @@
     .total_block{
         display: grid;
         grid-gap: 3em;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         width: max-content;
     }
     .total_block div{
