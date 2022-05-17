@@ -11,6 +11,10 @@ const station = {
             const data = await request.actions.REQUEST(context, "/station/"+station_id, "GET")
             return data
         },
+        async CREATE_STATION(context, body){
+            const data = await request.actions.REQUEST(context, "/station", "POST", body)
+            return data
+        },
     }
 }
 

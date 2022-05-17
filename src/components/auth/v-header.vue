@@ -14,7 +14,10 @@
         </div>
         <div class="sign">
             <router-link to="/signIn">
-                Մուտք գործել
+                ՄՈՒՏՔ ԳՈՐԾԵԼ
+            </router-link>
+            <router-link to="/signUp">
+                ԳՐԱՆՑՎԵԼ
             </router-link>
         </div>
     </div>
@@ -40,5 +43,10 @@
     a{
         color: #343434;
         font-size: 15px;
+    }
+    .sign{
+        display: flex;
+        align-items: center;
+        grid-gap: 1em;
     }
 </style>

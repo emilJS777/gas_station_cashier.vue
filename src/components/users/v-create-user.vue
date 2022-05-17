@@ -18,15 +18,22 @@
                     </option>
                 </select>
             </div>
+
             <div class="form_standard" v-if="user_setting">
                 <label>Գազալցակայան</label>
-                <div class="check_box_block">
+                <div class="check_box_block"  v-if="!profile.cash_box_id">
                     <label :for="0">null</label>
-                    <input type="radio" name="cash_box" :id="0" checked v-model="user_form.cash_box_id" :value="null">
+                    <input type="radio" name="cash_box" :id="0" :checked="!profile.cash_box_id ? true : ''" v-model="user_form.cash_box_id" :value="null" />
                 </div>
+
                 <div class="check_box_block" v-for="cash_box in cash_boxes" :key="cash_box.id">
                     <label :for="cash_box.id">{{cash_box.name}}</label>
-                    <input type="radio" name="cash_box" :id="cash_box.id" v-model="user_form.cash_box_id" :value="cash_box.id">
+                    <input type="radio" name="cash_box" :id="cash_box.id" v-model="user_form.cash_box_id"
+                           :value="cash_box.id" :checked="profile.cash_box_id === cash_box.id ? true : false">
+                </div>
+                <div class="check_box_block cashier" v-if="user_form.cash_box_id || profile.cash_box_id">
+                    <label for="cashier">cashier</label>
+                    <input type="checkbox" name="cashier" id="cashier"  :value="true" v-model="user_form.cashier">
                 </div>
             </div>
         </div>
@@ -43,7 +50,8 @@
     export default {
         name: "v-create-user",
         computed: mapState({
-            permissions: state => state.permission.permissions
+            permissions: state => state.permission.permissions,
+            profile: state => state.auth.profile
         }),
         data(){
             return{
@@ -53,7 +61,8 @@
                 user_form: {
                     first_name: null,
                     last_name: null,
-                    cash_box_id: null
+                    cash_box_id: null,
+                    cashier: false
                 },
                 selected_role_id: null
             }
@@ -89,7 +98,6 @@
             // }
         //    USER CREATE
             create_user_ticket(){
-                console.log(this.selected_role_id, this.user_form.cash_box_id)
                 this.$store.dispatch("user/CREATE_USER_TICKET", this.user_form).then(data => {
                     if(data.success) {
                         console.log({user_id: data.obj.id, role_id: this.selected_role_id})
@@ -116,7 +124,7 @@
     .user_setting{
         display: grid;
         grid-gap: 2em;
-        grid-template-columns: 250px 250px;
+        grid-template-columns: 250px 250px 250px;
 
     }
     .user_setting > *{
@@ -155,5 +163,8 @@
         padding: 10px;
         border: 0;
         margin-right: -10px;
+    }
+    .cashier{
+        margin-top: 10px;
     }
 </style>

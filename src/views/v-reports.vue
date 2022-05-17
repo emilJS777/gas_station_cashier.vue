@@ -1,45 +1,44 @@
 <template>
-    <div class="home">
-        <h3 class="title">Ընդհանուր գործիքներ</h3>
-
-        <v-cashier-change class="cashier_change"/>
-
-        <v-create-cash-box class="create_cash_box"/>
-
-
+    <div class="reports">
+        <h3 class="title">Զեկույցներ</h3>
 
         <div class="cash_box_block" v-for="cash_box in cash_boxes" :key="cash_box.id">
             <h1 class="station_title">{{cash_box.name}}</h1>
 
             <div class="create_block">
-                <v-station-create :cash_box="cash_box"/>
+<!--                <v-create-expense/>-->
+                <v-create-expense :cash_box="cash_box"/>
+                <v-create-cash-box-data :cash_box="cash_box" :cash_box_data_id="this.cash_box_data_id"/>
             </div>
 
-            <div class="station_blocks">
-                <v-station-blocks :cash_box="cash_box"/>
+            <div class="table_block">
+                <v-station-data-table :cash_box="cash_box" @cash_box_data_id="cashbox_data_id=>this.cash_box_data_id = cashbox_data_id"/>
+            </div>
+
+            <div class="table_block">
+                <v-expense-table/>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import VStationBlocks from "@/components/station/v-station-blocks";
-    import VCashierChange from "@/components/v-cashier-change";
-    import VCreateCashBox from "@/components/cash_box/v-create-cash-box";
-    import VStationCreate from "@/components/station/v-station-create";
+    import VStationDataTable from "@/components/station/v-station-data-table";
+    import VCreateExpense from "@/components/expense/v-create-expense";
+    import VExpenseTable from "@/components/expense/v-expense-table";
+    import VCreateCashBoxData from "@/components/cash_box/v-create-cash-box-data";
     export default {
-        name: "v-home",
-        components: {VStationCreate, VCreateCashBox, VCashierChange, VStationBlocks},
-        props: ['profile'],
+        name: "v-reports",
+        components: {VCreateCashBoxData, VExpenseTable, VCreateExpense, VStationDataTable},
         data(){
             return{
-                cash_boxes: []
+                cash_boxes: [],
+                cash_box_data_id: null
             }
         },
         mounted(){
             this.get_cash_box_ids()
         },
-
         methods:{
             get_cash_box_ids(){
                 this.$store.dispatch("cash_box/GET_CASH_BOX_IDS").then(data => {
@@ -63,27 +62,12 @@
 </script>
 
 <style scoped>
-    .home{
-        position: relative;
-    }
-    .cash_box_block{
+    .table_block{
+        margin-top: 30px;
         margin-bottom: 40px;
     }
-
-    .cashier_change{
-        position: absolute;
-        top: 20px;
-        right: 50px;
-    }
-    .station_blocks{
-        display: grid;
-        align-items: center;
-        grid-gap: 2em;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    }
-
     .create_block{
         display: flex;
-        grid-gap: 2em;
+        grid-gap: 1em;
     }
 </style>

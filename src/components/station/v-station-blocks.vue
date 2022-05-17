@@ -72,6 +72,7 @@
         padding-bottom: 48px;
         color: #999;
         position: relative;
+        margin-top: 40px;
     }
     .station_block > span{
         position: absolute;

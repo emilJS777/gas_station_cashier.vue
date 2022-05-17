@@ -18,6 +18,10 @@ const auth = {
             else
                 context.commit("SET_PROFILE", null)
             return data
+        },
+        LOGOUT(){
+            store.commit("request/SET_TOKENS", {access_token: null, refresh_token: null})
+            window.location.reload()
         }
     },
     mutations: {

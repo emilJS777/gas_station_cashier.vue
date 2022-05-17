@@ -22,22 +22,22 @@
                 <div class="td">{{user.creation_date}}</div>
 
 
-                <!--                <div class="menu">-->
-                <!--                    <ul>-->
-                <!--                        <li>-->
-                <!--                            <router-link :to="'/home'">-->
-                <!--                                <img src="@/assets/icons/edit.png" alt="">-->
-                <!--                                Խմբագրել-->
-                <!--                            </router-link>-->
-                <!--                        </li>-->
-                <!--                        <li>-->
-                <!--                            <a href="#">-->
-                <!--                                <img src="@/assets/icons/delete.png" alt="">-->
-                <!--                                Հեռացնել-->
-                <!--                            </a>-->
-                <!--                        </li>-->
-                <!--                    </ul>-->
-                <!--                </div>-->
+<!--                                <div class="menu">-->
+<!--                                    <ul>-->
+<!--                                        <li>-->
+<!--                                            <router-link :to="'/users?user_id='+user.id">-->
+<!--                                                <img src="@/assets/icons/edit.png" alt="">-->
+<!--                                                Խմբագրել-->
+<!--                                            </router-link>-->
+<!--                                        </li>-->
+<!--&lt;!&ndash;                                        <li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a href="#">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <img src="@/assets/icons/delete.png" alt="">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                Հեռացնել&ndash;&gt;-->
+<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </li>&ndash;&gt;-->
+<!--                                    </ul>-->
+<!--                                </div>-->
             </div>
         </div>
     </div>
@@ -98,7 +98,7 @@
 
 <style scoped>
     .tr{
-        grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1.3fr;
+        grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1.3fr .2fr;
     }
     .td{
         overflow: hidden;

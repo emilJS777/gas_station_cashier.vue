@@ -12,6 +12,11 @@ const routes = [
         component: () => import("@/views/v-signIn.vue"),
     },
     {
+        path: "/signUp",
+        name: "signUp",
+        component: () => import("@/views/v-signUp.vue"),
+    },
+    {
         path: "/users",
         meta: {middleware: [authentication]},
         name: "users",
@@ -28,6 +33,12 @@ const routes = [
         meta: {middleware: [authentication]},
         name: "home",
         component: () => import("@/views/v-home.vue"),
+    },
+    {
+        path: "/reports",
+        meta: {middleware: [authentication]},
+        name: "reports",
+        component: () => import("@/views/v-reports.vue"),
     }
 
 ];

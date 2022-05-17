@@ -13,7 +13,8 @@ import user_role from "./modules/user_role";
 import role from "./modules/role"
 import permission from "./modules/permission"
 import role_permission from "./modules/role_permission";
-
+import expense from "./modules/expense";
+import cash_box_data from "./modules/cash_box_data";
 
 export default new Vuex.Store({
     namespaced: true,
@@ -29,6 +30,8 @@ export default new Vuex.Store({
         user_role,
         role,
         permission,
-        role_permission
+        role_permission,
+        expense,
+        cash_box_data
     }
 })

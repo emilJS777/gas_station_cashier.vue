@@ -1,5 +1,5 @@
 <template>
-    <div class="cashier_change_block" v-if="cashiers.length">
+    <div class="cashier_change_block" v-if="cashiers.length && profile.cashier">
         <select  v-model="next_cashier_id">
             <option :value="null" selected>ընտրեք հաջորդ գանձապաին</option>
             <option v-for="cashier in this.cashiers" :key="cashier.id" :value="cashier.id">
@@ -34,7 +34,9 @@
             get_cashiers(cash_box_id){
                 this.$store.dispatch("cashbox_user/GET_USERS_BY_CASH_BOX_ID", cash_box_id).then(data => {
                     if(data.success)
-                        this.cashiers = data.obj
+                        data.obj.forEach(user => {
+                            user.cashier ? this.cashiers.push(user) : ''
+                        })
                 })
             },
             // CHANGE NEXT CASHIER
