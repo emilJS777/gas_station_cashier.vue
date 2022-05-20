@@ -8,24 +8,24 @@
                 <h4>Քաշը: <span>{{parseFloat(this.total_weight).toFixed(2)}}</span></h4>
                 <h4>Ավտո: <span>{{this.total_count}}</span></h4>
                 <h4>Աբարոթ: <span>{{parseFloat(this.total_price).toFixed(2)}}</span></h4>
-                <h4>%: <span>{{parseFloat(parseFloat(this.total_price).toFixed(2) / parseFloat(this.total_weight).toFixed(2)).toFixed(1)}}</span></h4>
+                <h4>%: <span>{{parseFloat(parseFloat(this.total_price).toFixed(2) / parseFloat(this.total_weight).toFixed(2)).toFixed(1) === 'NaN' ? '-' : parseFloat(parseFloat(this.total_price).toFixed(2) / parseFloat(this.total_weight).toFixed(2)).toFixed(1)}}</span></h4>
                 <h4>Շահույթ: <span>{{parseFloat(parseFloat(this.total_price).toFixed(2) - parseFloat(this.total_expense).toFixed(2) - this.salary).toFixed(2)}}</span></h4>
 
             </div>
 
             <div  v-if="permissions.find(item => item.name === 'cash_box_data_get')">
-                <h4>աշխատավարձ: <span>{{this.salary}}</span></h4>
-                <h4>ավտոգազ: <span>{{this.car_gas || '-'}}</span></h4>
+                <h4>Աշխատավարձ: <span>{{this.salary <= 0 ? '-' : this.salary}}</span></h4>
+                <h4>Ավտոգազ: <span>{{this.car_gas || '-'}}</span></h4>
                 <h4>ԳԱԶ մուծում: <span>{{this.payment_gas || '-'}}</span></h4>
                 <h4>ԼՈՒՅՍ մուծում: <span>{{this.payment_electricity || '-'}}</span></h4>
                 <h4>ՀԱՐԿԱ: <span>{{this.payment_gas || '-'}}</span></h4>
             </div>
 
             <div v-if="permissions.find(item => item.name === 'cash_box_data_get')">
-                <h4>hosan: <span>{{parseFloat(this.t / this.total_weight).toFixed(8)  === "NaN" ? 0 : parseFloat(this.t / this.total_weight).toFixed(8)}}</span></h4>
+                <h4>Հոսանք: <span>{{typeof parseFloat(this.t / this.total_weight).toFixed(8) !== number  ? '-' : parseFloat(this.t / this.total_weight).toFixed(8)}}</span></h4>
                 <h4>R: <span>{{this.r || '-'}}</span></h4>
                 <h4>S: <span>{{this.s || '-'}}</span></h4>
-                <h4>T: <span>{{this.t || '-'}}</span></h4>
+                <h4>T: <span>{{this.t <= 0 ? '-' : this.t}}</span></h4>
             </div>
         </div>
         <div class="date_filter_block">
@@ -159,7 +159,7 @@
                 t: 0
             }
         },
-        created(){
+        mounted(){
             this.get_data()
 
         },

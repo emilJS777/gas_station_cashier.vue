@@ -63,14 +63,13 @@
 
     export default {
         name: "v-create-cash-box-data",
-        props: ['cash_box', 'cash_box_data_id'],
+        props: ['cash_box'],
         computed: mapState({
             permissions: state => state.permission.permissions
         }),
         data(){
             return{
                 cash_box_data_setting: false,
-                cashbox_data_id: null,
                 cash_box_data_form: {
                     salary: null,
                     car_gas: null,
@@ -85,7 +84,6 @@
         },
         mounted(){
             this.cash_box_data_form.cash_box_id = this.cash_box.id
-            this.cashbox_data_id = this.cash_box_data_id
         },
         methods: {
             cash_box_data_setting_toggle(){

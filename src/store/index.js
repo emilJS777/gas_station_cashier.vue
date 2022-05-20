@@ -15,6 +15,8 @@ import permission from "./modules/permission"
 import role_permission from "./modules/role_permission";
 import expense from "./modules/expense";
 import cash_box_data from "./modules/cash_box_data";
+import client from "./modules/client"
+import client_user from "./modules/client_user";
 
 export default new Vuex.Store({
     namespaced: true,
@@ -32,6 +34,8 @@ export default new Vuex.Store({
         permission,
         role_permission,
         expense,
-        cash_box_data
+        cash_box_data,
+        client,
+        client_user
     }
 })

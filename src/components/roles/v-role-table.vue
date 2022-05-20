@@ -22,22 +22,22 @@
                         </div>
                     </div>
 
-                    <!--                <div class="menu">-->
-                    <!--                    <ul>-->
-                    <!--                        <li>-->
-                    <!--                            <router-link :to="'/home'">-->
-                    <!--                                <img src="@/assets/icons/edit.png" alt="">-->
-                    <!--                                Խմբագրել-->
-                    <!--                            </router-link>-->
-                    <!--                        </li>-->
-                    <!--                        <li>-->
-                    <!--                            <a href="#">-->
-                    <!--                                <img src="@/assets/icons/delete.png" alt="">-->
-                    <!--                                Հեռացնել-->
-                    <!--                            </a>-->
-                    <!--                        </li>-->
-                    <!--                    </ul>-->
-                    <!--                </div>-->
+                                    <div class="menu" v-if="permissions.find(item => item.name === 'role_edit')">
+                                        <ul>
+                                            <li>
+                                                <a :href="'/roles?role_id='+role.id">
+                                                    <img src="@/assets/icons/edit.png" alt="">
+                                                    Խմբագրել
+                                                </a>
+                                            </li>
+<!--                                            <li>-->
+<!--                                                <a href="#">-->
+<!--                                                    <img src="@/assets/icons/delete.png" alt="">-->
+<!--                                                    Հեռացնել-->
+<!--                                                </a>-->
+<!--                                            </li>-->
+                                        </ul>
+                                    </div>
                 </div>
             </div>
         </div>
@@ -125,5 +125,8 @@
     }
     .check_box_block{
         background-color: initial;
+    }
+    .menu{
+        height: 20px;
     }
 </style>

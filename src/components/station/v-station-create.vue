@@ -82,17 +82,10 @@
     .mini_form{
         width: max-content;
         position: relative;
-        animation-duration: .8s;
-        animation-name: mini-form-show;
+        animation-duration: .3s;
+        animation-name: anim-toggle;
     }
-    @keyframes mini-form-show {
-        from{
-            opacity: 0;
-        }
-        to{
-            opacity: 1;
-        }
-    }
+
     .close{
         position: absolute;
         right: -5px;

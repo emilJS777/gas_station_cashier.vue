@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="table_block">
-                    <v-station-data-table :cash_box="cash_box" @cash_box_data_id="cashbox_data_id=>this.cash_box_data_id = cashbox_data_id"/>
+                    <v-station-data-table :cash_box="cash_box"/>
                 </div>
 
                 <div class="table_block">
@@ -93,17 +93,8 @@
         margin-top: 20px;
     }
     .report_block *{
-        animation-name: report-toggle;
+        animation-name: anim-toggle;
         animation-duration: .3s;
     }
-    @keyframes report-toggle {
-        from{
-            opacity: 0;
-            margin-top: -45px;
-        }
-        to{
-            padding-top:0;
-            opacity: 1;
-        }
-    }
+
 </style>

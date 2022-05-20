@@ -15,6 +15,14 @@ const role = {
             const data = await request.actions.REQUEST(context, "/role", "POST", body)
             return data
         },
+        async UPDATE_ROLE(context, params){
+            const data = await request.actions.REQUEST(context, "/role/"+params.role_id, "PUT", params.body)
+            return data
+        },
+        async DELETE_ROLE(context, role_id){
+            const data = await request.actions.REQUEST(context, "/role/"+role_id, "DELETE")
+            return data
+        },
     }
 }
 

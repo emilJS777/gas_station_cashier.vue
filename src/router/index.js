@@ -39,6 +39,12 @@ const routes = [
         meta: {middleware: [authentication]},
         name: "reports",
         component: () => import("@/views/v-reports.vue"),
+    },
+    {
+        path: "/clients",
+        meta: {middleware: [authentication]},
+        name: "clients",
+        component: () => import("@/views/v-clients.vue"),
     }
 
 ];

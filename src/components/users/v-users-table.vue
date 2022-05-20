@@ -13,39 +13,44 @@
         </div>
         <div class="tbody">
             <div class="tr" v-for="user in users" :key="user.id">
-                <div class="td">{{user.name}}</div>
+                <div class="td">{{user.name || '-'}}</div>
                 <div class="td">{{user.first_name}}</div>
                 <div class="td">{{user.last_name}}</div>
                 <div class="td">{{user.ticket || '-'}}</div>
                 <div class="td">{{user.cash_box_name || '-'}}</div>
-                <div class="td"><span v-for="role in user.roles" :key="role">{{role}}</span></div>
+                <div class="td"><span v-for="role in user.roles" :key="role.id">{{role[0] ? role[0].name : '-'}}</span></div>
                 <div class="td">{{user.creation_date}}</div>
 
 
-<!--                                <div class="menu">-->
-<!--                                    <ul>-->
+                                <div class="menu" v-if="permissions.find(item => item.name === 'user_edit')">
+                                    <ul>
+                                        <li>
+                                            <a :href="'/users?user_id='+user.id">
+                                                <img src="@/assets/icons/edit.png" alt="">
+                                                Խմբագրել
+                                            </a>
+                                        </li>
 <!--                                        <li>-->
-<!--                                            <router-link :to="'/users?user_id='+user.id">-->
-<!--                                                <img src="@/assets/icons/edit.png" alt="">-->
-<!--                                                Խմբագրել-->
-<!--                                            </router-link>-->
+<!--                                            <a href="#">-->
+<!--                                                <img src="@/assets/icons/delete.png" alt="">-->
+<!--                                                Հեռացնել-->
+<!--                                            </a>-->
 <!--                                        </li>-->
-<!--&lt;!&ndash;                                        <li>&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <a href="#">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                <img src="@/assets/icons/delete.png" alt="">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                Հեռացնել&ndash;&gt;-->
-<!--&lt;!&ndash;                                            </a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </li>&ndash;&gt;-->
-<!--                                    </ul>-->
-<!--                                </div>-->
+                                    </ul>
+                                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import {mapState} from "vuex";
+
     export default {
         name: "v-users-table",
+        computed: mapState({
+            permissions: state => state.permission.permissions
+        }),
         data(){
             return{
                 users: []
@@ -59,29 +64,29 @@
                 this.$store.dispatch("user/GET_USERS").then(data => {
                     if(data.success) {
                         this.users = data.obj
-                        this.get_role_ids_by_user_id()
+                        this.get_roles_by_user_id()
                         this.get_cash_box_by_id()
                     }
                 })
             },
-            get_role_ids_by_user_id(){
+            get_roles_by_user_id(){
                 this.users.forEach(user => {
                     user.roles = []
-                    this.$store.dispatch("user_role/GET_ROLE_IDS_BY_USER_ID", user.id).then(data => {
+                    this.$store.dispatch("user_role/GET_ROLES_BY_USER_ID", user.id).then(data => {
                         if(data.success) {
-                            data.obj.forEach(role_id => this.get_role_by_id(user.id, role_id))
+                            user.roles.push(data.obj)
                         }
                     })
                 })
             },
-            get_role_by_id(user_id, role_id){
-                this.$store.dispatch("role/GET_ROLE_BY_ID", role_id).then(data => {
-                    this.users.forEach(user => {
-                        if(user.id === user_id)
-                            user.roles.push(data.obj.name)
-                    })
-                })
-            },
+            // get_role_by_id(user_id, role_id){
+            //     this.$store.dispatch("role/GET_ROLE_BY_ID", role_id).then(data => {
+            //         this.users.forEach(user => {
+            //             if(user.id === user_id)
+            //                 user.roles.push(data.obj.name)
+            //         })
+            //     })
+            // },
             get_cash_box_by_id(){
                 this.users.forEach(user => {
                     if(user.cash_box_id){
@@ -98,7 +103,7 @@
 
 <style scoped>
     .tr{
-        grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1.3fr .2fr;
+        grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1.3fr .2fr .1fr;
     }
     .td{
         overflow: hidden;

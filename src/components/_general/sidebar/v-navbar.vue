@@ -36,6 +36,12 @@
                     Դերեր
                 </router-link>
             </li>
+            <li v-bind:class="this.$route.path === '/clients' ? 'active' : ''" v-if="permissions.find(item => item.name === 'client_get')">
+                <router-link to="/clients">
+                    <img src="@/assets/icons/meeting.png" width="24" height="24" alt="">
+                    Հաճախորդներ
+                </router-link>
+            </li>
 <!--            <li>-->
 <!--                <router-link to="#" @click="()=>this.firms_menu_open = !this.firms_menu_open"-->
 <!--                             v-bind:class="this.$route.path === '/data' && !this.firms_menu_open">-->
@@ -117,4 +123,5 @@
             margin-top: 0;
         }
     }
+
 </style>
