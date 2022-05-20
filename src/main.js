@@ -15,7 +15,7 @@ app.use(store)
 
 const WSocket = new VueSocketIO({
     debug: true,
-    connection: SocketIO('ws://localhost:5001'), //options object is Optional
+    connection: SocketIO('ws://37.252.64.153:5001'), //options object is Optional
     vuex: {
         store,
         actionPrefix: 'SOCKET_',
