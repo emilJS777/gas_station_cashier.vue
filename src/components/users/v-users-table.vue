@@ -2,6 +2,7 @@
     <div class="table_standard">
         <div class="thead">
             <div class="tr">
+                <div class="th"></div>
                 <div class="th">Օգտագործողի անունը</div>
                 <div class="th">Անուն</div>
                 <div class="th">Ազգանուն</div>
@@ -13,6 +14,7 @@
         </div>
         <div class="tbody">
             <div class="tr" v-for="user in users" :key="user.id">
+                <div class="td"><v-user-image :user_id="user.id" class="user_image_small"/></div>
                 <div class="td">{{user.name || '-'}}</div>
                 <div class="td">{{user.first_name}}</div>
                 <div class="td">{{user.last_name}}</div>
@@ -45,9 +47,11 @@
 
 <script>
     import {mapState} from "vuex";
+    import VUserImage from "@/components/_general/v-user-image";
 
     export default {
         name: "v-users-table",
+        components: {VUserImage},
         computed: mapState({
             permissions: state => state.permission.permissions
         }),
@@ -103,12 +107,13 @@
 
 <style scoped>
     .tr{
-        grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr 1fr 1.3fr .2fr .1fr;
+        grid-template-columns: .6fr 1.3fr 1fr 1fr 1fr 1fr 1fr 1.4fr .2fr .1fr;
     }
     .td{
         overflow: hidden;
-        width: 140px;
         white-space: nowrap;
+        display: flex;
+        align-items: center;
     }
     button{
         padding: 14px;

@@ -1,16 +1,31 @@
 <template>
     <div class="auth">
-        <div class="img_block">
-            <div class="img">
-                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                </svg>
-            </div>
-        </div>
+        <v-user-image :user_id="profile.id"/>
         <div class="info_block">
             <h4>{{profile.first_name}} {{profile.last_name}}</h4>
             <span>{{profile.name}}</span>
         </div>
+        
+
+    </div>
+
+    <div class="upload_image_block">
+        <label for="file">
+            <span v-if="!imageForm.imageFile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-image" viewBox="0 0 16 16">
+                <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                <path d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"/>
+                </svg>
+                 ներբերնել լուսանկար
+            </span>
+
+            <input type="file" id="file" @change="changeImageFile" style="display: none" aria-label="Upload image">
+
+            <button @click="create_image" v-if="imageForm.imageFile">ներբերնել</button>
+        </label>
+
+
+        <p>{{this.imageForm.msg}}</p>
     </div>
 
     <button class="logout" @click="this.logout" v-if="!profile.cashier">
@@ -23,15 +38,51 @@
 </template>
 
 <script>
+    import VUserImage from "@/components/_general/v-user-image";
     export default {
         name: "v-auth",
+        components: {VUserImage},
         props: ["profile"],
         mounted(){
             this.$store.dispatch("permission/GET_ALL_PERMISSION")
         },
+        data(){
+            return{
+                imageForm:{
+                    msg: null,
+                    imageFile: null,
+                },
+            }
+        },
         methods: {
             logout(){
                 this.$store.dispatch("auth/LOGOUT")
+            },
+
+            changeImageFile(e){
+                let files = e.target.files || e.dataTransfer.files;
+
+                if(files[0].type !== 'image/jpeg' && files[0].type !== 'image/jpg') {
+                    this.imageForm.msg = 'invalid image format'
+                    this.imageForm.imageFile = null
+                }
+                else {
+                    this.imageForm.imageFile = files[0];
+                    this.imageForm.msg = null
+                }
+            },
+
+            create_image(){
+                if(!this.imageForm.imageFile)
+                    this.imageForm.msg = 'file img not found'
+                else{
+                    let fd= new FormData()
+                    fd.append('image', this.imageForm.imageFile)
+                    this.$store.dispatch("user_image/CREATE_USER_IMAGE", fd).then(data=>{
+                        if(data.success)
+                            location.reload()
+                    })
+                }
             }
         }
     }
@@ -81,5 +132,24 @@
         cursor: pointer;
         border-top: 1px solid #999;
         width: 100%;
+    }
+    .upload_image_block{
+        width: max-content;
+        margin-left: 40px;
+        margin-top: -15px;
+        padding-left: 0px;
+        /*margin: -13px auto;*/
+    }
+    .upload_image_block button, .upload_image_block span{
+        background-color: #374c98;
+        color: #fff;
+        outline: 0;
+        border: 0;
+        cursor: pointer;
+        display: flex;
+        grid-gap: .8em;
+        /*margin-top: -12px;*/
+        padding: 8px;
+        font-size: 12px;
     }
 </style>

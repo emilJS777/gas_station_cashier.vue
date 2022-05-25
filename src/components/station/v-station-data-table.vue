@@ -315,7 +315,7 @@
         width: max-content;
     }
 .date{
-    display: grid;
+    /*display: grid;*/
     align-items: flex-end;
     grid-gap: 1em;
     margin-bottom: 10px;

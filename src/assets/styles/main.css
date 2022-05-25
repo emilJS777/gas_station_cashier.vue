@@ -285,3 +285,29 @@ select{
     margin-right: -10px;
 }
 /*OTHER END *****/
+
+/*IMG */
+.img_block{
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid#fff;
+}
+.img_block > img{
+    width: 70px;
+    height: auto;
+}
+.user_image_small {
+    width: 40px;
+    height: 40px;
+}
+.user_image_small > img{
+    width: 60px;
+    height: auto;
+}
+/*IMG END*/

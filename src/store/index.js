@@ -17,6 +17,7 @@ import expense from "./modules/expense";
 import cash_box_data from "./modules/cash_box_data";
 import client from "./modules/client"
 import client_user from "./modules/client_user";
+import user_image from "./modules/user_image";
 
 export default new Vuex.Store({
     namespaced: true,
@@ -36,6 +37,7 @@ export default new Vuex.Store({
         expense,
         cash_box_data,
         client,
-        client_user
+        client_user,
+        user_image
     }
 })

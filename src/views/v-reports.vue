@@ -12,6 +12,10 @@
             </h1>
 
             <div v-if="cash_box.show" class="report_block">
+                <div class="cashiers_block" v-if="permissions.find(item => item.name === 'user_get')">
+                    <h4>գանձապահներ</h4>
+                    <v-statistic-cash-box class="statistic_block" :cash_box_id="cash_box.id"/>
+                </div>
                 <div class="create_block" >
                     <!--                <v-create-expense/>-->
                     <v-create-expense :cash_box="cash_box"/>
@@ -19,6 +23,7 @@
                 </div>
 
                 <div class="table_block">
+
                     <v-station-data-table :cash_box="cash_box"/>
                 </div>
 
@@ -35,9 +40,14 @@
     import VCreateExpense from "@/components/expense/v-create-expense";
     import VExpenseTable from "@/components/expense/v-expense-table";
     import VCreateCashBoxData from "@/components/cash_box/v-create-cash-box-data";
+    import VStatisticCashBox from "@/components/cash_box/v-statistic-cash-box";
+    import {mapState} from "vuex";
     export default {
         name: "v-reports",
-        components: {VCreateCashBoxData, VExpenseTable, VCreateExpense, VStationDataTable},
+        components: {VStatisticCashBox, VCreateCashBoxData, VExpenseTable, VCreateExpense, VStationDataTable},
+        computed: mapState({
+            permissions: state => state.permission.permissions
+        }),
         data(){
             return{
                 cash_boxes: [],
@@ -96,5 +106,15 @@
         animation-name: anim-toggle;
         animation-duration: .3s;
     }
-
+    .cashiers_block{
+        padding: 5px;
+    }
+    .statistic_block{
+        display: flex;
+        justify-content: flex-start;
+    }
+    h4{
+        color: #1c325f;
+        margin-bottom: 5px;
+    }
 </style>
