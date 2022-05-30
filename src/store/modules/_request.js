@@ -1,9 +1,9 @@
 import Axios from "axios";
 import store from "@/store";
 
-// const api_url = "http://localhost:5001/api"
+const api_url = "http://localhost:5001/api"
 // const api_url = "http://0.0.0.0:5001/api"
-const api_url = "http://37.252.64.153:5001/api"
+// const api_url = "http://37.252.64.153:5001/api"
 // const api_url = "http://192.168.0.10:5001/api"
 // const api_url ="http://192.168.31.116:5001/api"
 
@@ -32,6 +32,7 @@ const request = {
                 data: body || {},
                 headers: access ? {"Authorization": "Bearer " + localStorage.getItem("access")} : {}
             }).then(data => data.data).catch(err => {
+
                 if(err.response.status === 401 && access || err.response.status === 422 && access)
                     return REFRESH({path, method, body})
                 return err.response.data

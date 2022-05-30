@@ -67,7 +67,7 @@
             get_users(){
                 this.$store.dispatch("user/GET_USERS").then(data => {
                     if(data.success) {
-                        this.users = data.obj
+                        this.users = data.obj.items
                         this.get_roles_by_user_id()
                         this.get_cash_box_by_id()
                     }

@@ -4,7 +4,7 @@ const station = {
     namespaced: true,
     actions: {
         async GET_USERS(context){
-            const data = await request.actions.REQUEST(context, "/user", "GET")
+            const data = await request.actions.REQUEST(context, "/user?page=1&per_page=50", "GET")
             return data
         },
         async GET_USER_BY_ID(context, user_id){

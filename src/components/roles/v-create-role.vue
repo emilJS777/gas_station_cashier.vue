@@ -7,17 +7,17 @@
             </div>
 
 
-<!--            <div class="form_standard" v-if="role_setting && !this.$route.query.role_id">-->
-<!--                <label>Թույլտվություններ</label>-->
-<!--                <div class="permissions_block">-->
-<!--                    <div class="check_box_block" v-for="permission in permissions" :key="permission.id">-->
-<!--                        <label :for="permission.id">{{permission.title}}</label>-->
-<!--                        <input type="checkbox" :id="permission.id" :value="permission.id" v-model="permissions_form">-->
-<!--                    </div>-->
-<!--                </div>-->
+            <!--            <div class="form_standard" v-if="role_setting && !this.$route.query.role_id">-->
+            <!--                <label>Թույլտվություններ</label>-->
+            <!--                <div class="permissions_block">-->
+            <!--                    <div class="check_box_block" v-for="permission in permissions" :key="permission.id">-->
+            <!--                        <label :for="permission.id">{{permission.title}}</label>-->
+            <!--                        <input type="checkbox" :id="permission.id" :value="permission.id" v-model="permissions_form">-->
+            <!--                    </div>-->
+            <!--                </div>-->
 
 
-<!--            </div>-->
+            <!--            </div>-->
 
 
         </div>
@@ -64,7 +64,6 @@
                 this.$store.dispatch("role/CREATE_ROLE", this.role_form).then(data => {
                     if(!data.success)
                         this.emitter.emit("msg-modal", data);
-
                     this.role_permission_bind(data.obj.id)
                 }).finally(() => window.location.reload())
             },
@@ -72,7 +71,6 @@
                 this.$store.dispatch("role/UPDATE_ROLE", {role_id: this.$route.query.role_id, body: this.role_form}).then(data => {
                     if(data.success)
                         this.toggle_setting()
-
                     this.emitter.emit("msg-modal", data);
                 })
             },
@@ -80,7 +78,6 @@
                 this.$store.dispatch("role/DELETE_ROLE", this.$route.query.role_id).then(data => {
                     if(data.success)
                         this.toggle_setting()
-
                     this.emitter.emit("msg-modal", data);
                 })
             },
@@ -107,34 +104,30 @@
 </script>
 
 <style scoped>
-.create_role{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: flex-end;
-    grid-gap: 2em;
-    padding-bottom: 30px;
-}
-.form_standard{
-    margin-top: 30px;
-}
-
+    .create_role{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: flex-end;
+        grid-gap: 2em;
+        padding-bottom: 30px;
+    }
+    .form_standard{
+        margin-top: 30px;
+    }
     .permissions_block{
         margin-top: 20px;
         display: grid;
         grid-template-columns: 1fr 1fr;
         grid-gap: 1em;
     }
-
     .toggle_block{
         float: right;
         text-align: right;
     }
-
-.role_setting > *{
-    animation-duration: .3s;
-    animation-name: anim-toggle;
-}
-
+    .role_setting > *{
+        animation-duration: .3s;
+        animation-name: anim-toggle;
+    }
     button{
         margin: 5px;
     }

@@ -55,7 +55,7 @@
             get_clients(){
                 this.$store.dispatch("client/GET_ALL_CLIENTS").then(data => {
                     if(data.success)
-                        this.clients = data.obj
+                        this.clients = data.obj.items
                 })
             }
         }

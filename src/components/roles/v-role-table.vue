@@ -22,22 +22,22 @@
                         </div>
                     </div>
 
-                                    <div class="menu" v-if="permissions.find(item => item.name === 'role_edit')">
-                                        <ul>
-                                            <li>
-                                                <a :href="'/roles?role_id='+role.id">
-                                                    <img src="@/assets/icons/edit.png" alt="">
-                                                    Խմբագրել
-                                                </a>
-                                            </li>
-<!--                                            <li>-->
-<!--                                                <a href="#">-->
-<!--                                                    <img src="@/assets/icons/delete.png" alt="">-->
-<!--                                                    Հեռացնել-->
-<!--                                                </a>-->
-<!--                                            </li>-->
-                                        </ul>
-                                    </div>
+                    <div class="menu" v-if="permissions.find(item => item.name === 'role_edit')">
+                        <ul>
+                            <li>
+                                <a :href="'/roles?role_id='+role.id">
+                                    <img src="@/assets/icons/edit.png" alt="">
+                                    Խմբագրել
+                                </a>
+                            </li>
+                            <!--                                            <li>-->
+                            <!--                                                <a href="#">-->
+                            <!--                                                    <img src="@/assets/icons/delete.png" alt="">-->
+                            <!--                                                    Հեռացնել-->
+                            <!--                                                </a>-->
+                            <!--                                            </li>-->
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -52,10 +52,10 @@
             permissions: state => state.permission.permissions
         }),
         data(){
-           return{
-               roles: [],
-               role_permissions: []
-           }
+            return{
+                roles: [],
+                role_permissions: []
+            }
         },
         mounted(){
             this.get_roles()
@@ -73,7 +73,6 @@
                 this.$store.dispatch("role_permission/GET_PERMISSIONS_BY_ROLE_ID", role_id).then(data => {
                     if(data.success){
                         this.role_permissions = data.obj
-
                         this.roles.forEach(role => {
                             if(role.id === role_id)
                                 role.permissions = data.obj
@@ -81,15 +80,13 @@
                     }
                 })
             },
-
             role_permission_delete_bind(role_id, permission_id){
-                this.$store.dispatch("role_permission/DELETE_BIND", {role_id: role_id, permission_id: permission_id}).then(data => {
+                this.$store.dispatch("role_permission/DELETE_BIND", {role_id: role_id, permission_ids: [permission_id]}).then(data => {
                     this.emitter.emit("msg-modal", data);
                 })
             },
-
             role_permission_create_bind(role_id, permission_id){
-                this.$store.dispatch("role_permission/CREATE_BIND", {role_id: role_id, permission_id: permission_id}).then(data => {
+                this.$store.dispatch("role_permission/CREATE_BIND", {role_id: role_id, permission_ids: [permission_id]}).then(data => {
                     this.emitter.emit("msg-modal", data);
                 })
             }
@@ -120,7 +117,6 @@
         overflow: auto;
     }
     .table_standard{
-
         display: block;
     }
     .check_box_block{

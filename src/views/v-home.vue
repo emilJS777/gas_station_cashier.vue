@@ -37,16 +37,19 @@
             }
         },
         mounted(){
+
             this.get_cash_box_ids()
         },
 
         methods:{
             get_cash_box_ids(){
+
                 this.$store.dispatch("cash_box/GET_CASH_BOX_IDS").then(data => {
                     if(data.success)
                         data.obj.forEach(cash_box_id => {
                             this.get_cash_box_by_id(cash_box_id)
                         })
+
                 })
             },
             get_cash_box_by_id(cash_box_id){

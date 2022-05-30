@@ -16,7 +16,7 @@ const client = {
             return data
         },
         async GET_ALL_CLIENTS(context){
-            const data = await request.actions.REQUEST(context, "/client", "GET")
+            const data = await request.actions.REQUEST(context, "/client?page=1&per_page=50", "GET")
             return data
         },
         async GET_CLIENT_BY_ID(context, client_id){
