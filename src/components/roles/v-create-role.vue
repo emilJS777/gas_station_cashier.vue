@@ -7,17 +7,19 @@
             </div>
 
 
-            <!--            <div class="form_standard" v-if="role_setting && !this.$route.query.role_id">-->
-            <!--                <label>Թույլտվություններ</label>-->
-            <!--                <div class="permissions_block">-->
-            <!--                    <div class="check_box_block" v-for="permission in permissions" :key="permission.id">-->
-            <!--                        <label :for="permission.id">{{permission.title}}</label>-->
-            <!--                        <input type="checkbox" :id="permission.id" :value="permission.id" v-model="permissions_form">-->
-            <!--                    </div>-->
-            <!--                </div>-->
+                        <div class="form_standard" v-if="role_setting && !this.$route.query.role_id">
+                            <label>Թույլտվություններ</label>
+                            <div class="permissions_block">
+                                <div class="check_box_block" v-for="permission in permissions" :key="permission.id">
+                                    <label :for="permission.id">{{permission.title}}</label>
+                                    <input type="checkbox" :id="permission.id" :value="permission.id"
+                                           :checked="permissions_form.find(permission_id => permission.id === permission_id)"
+                                           v-model="permissions_form">
+                                </div>
+                            </div>
 
 
-            <!--            </div>-->
+                        </div>
 
 
         </div>
@@ -57,9 +59,17 @@
             if(this.$route.query.role_id){
                 this.get_role_by_id()
                 this.role_setting = true
+                this.get_permissions_by_role_id(this.$route.query.role_id)
+                console.log(this.permissions_form)
+
             }
         },
         methods: {
+            toggle_permissions_form(permission_id){
+                const permission_index = this.permissions_form.indexOf(permission_id)
+
+                permission_index ? this.permissions_form.splice(permission_index, 1) : this.permissions_form.push(permission_id)
+            },
             create_role(){
                 this.$store.dispatch("role/CREATE_ROLE", this.role_form).then(data => {
                     if(!data.success)
@@ -68,9 +78,12 @@
                 }).finally(() => window.location.reload())
             },
             update_role(){
+
                 this.$store.dispatch("role/UPDATE_ROLE", {role_id: this.$route.query.role_id, body: this.role_form}).then(data => {
-                    if(data.success)
+                    if(data.success) {
                         this.toggle_setting()
+                    }
+
                     this.emitter.emit("msg-modal", data);
                 })
             },
@@ -82,8 +95,9 @@
                 })
             },
             role_permission_bind(role_id){
-                this.permissions_form.forEach(permission_id => {
-                    this.$store.dispatch("role_permission/CREATE_BIND", {role_id: role_id, permission_id: permission_id}).then(data => {
+                this.permissions_form.forEach(() => {
+                    console.log(this.permissions_form)
+                    this.$store.dispatch("role_permission/CREATE_BIND", {role_id: role_id, permission_ids: this.permissions_form}).then(data => {
                         this.emitter.emit("msg-modal", data);
                     })
                 })
@@ -93,6 +107,14 @@
                     if(data.success)
                         this.role_form.name = data.obj.name
                 })
+            },
+            get_permissions_by_role_id(role_id) {
+               this.$store.dispatch("role_permission/GET_PERMISSIONS_BY_ROLE_ID", role_id).then(data => {
+                   if(data.success)
+                       data.obj.forEach(permission => {
+                           this.permissions_form.push(permission.id)
+                       })
+               })
             },
             toggle_setting(){
                 this.role_form.name = null

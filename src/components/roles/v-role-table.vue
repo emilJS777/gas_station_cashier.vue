@@ -14,10 +14,10 @@
                         <div class="check_box_block"  >
                             <input type="checkbox" :id="permission.id" :value="permission.id"
                                    v-if="role.permissions && role.permissions.find(role_permission => role_permission.id === permission.id)"
-                                   :checked="true" @click="role_permission_delete_bind(role.id, permission.id)"/>
+                                   :checked="true" @click="role_permission_delete_bind(role.id, permission.id)" disabled/>
 
                             <input type="checkbox" :id="permission.id" :value="permission.id" v-else :checked="false"
-                                   @click="role_permission_create_bind(role.id, permission.id)"/>
+                                   @click="role_permission_create_bind(role.id, permission.id)" disabled/>
 
                         </div>
                     </div>
@@ -80,16 +80,6 @@
                     }
                 })
             },
-            role_permission_delete_bind(role_id, permission_id){
-                this.$store.dispatch("role_permission/DELETE_BIND", {role_id: role_id, permission_ids: [permission_id]}).then(data => {
-                    this.emitter.emit("msg-modal", data);
-                })
-            },
-            role_permission_create_bind(role_id, permission_id){
-                this.$store.dispatch("role_permission/CREATE_BIND", {role_id: role_id, permission_ids: [permission_id]}).then(data => {
-                    this.emitter.emit("msg-modal", data);
-                })
-            }
         }
     }
 </script>
