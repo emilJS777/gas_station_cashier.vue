@@ -7,14 +7,14 @@
             </div>
 
 
-                        <div class="form_standard" v-if="role_setting && !this.$route.query.role_id">
+                        <div class="form_standard" v-if="role_setting">
                             <label>Թույլտվություններ</label>
                             <div class="permissions_block">
                                 <div class="check_box_block" v-for="permission in permissions" :key="permission.id">
                                     <label :for="permission.id">{{permission.title}}</label>
                                     <input type="checkbox" :id="permission.id" :value="permission.id"
-                                           :checked="permissions_form.find(permission_id => permission.id === permission_id)"
-                                           v-model="permissions_form">
+                                           :checked="role_form.permission_ids.find(permission_id => permission.id === permission_id)"
+                                           v-model="role_form.permission_ids">
                                 </div>
                             </div>
 
@@ -50,8 +50,7 @@
         }),
         data(){
             return{
-                role_form: {name: ''},
-                permissions_form: [],
+                role_form: {name: '', permission_ids: []},
                 role_setting: false
             }
         },
@@ -60,7 +59,6 @@
                 this.get_role_by_id()
                 this.role_setting = true
                 this.get_permissions_by_role_id(this.$route.query.role_id)
-                console.log(this.permissions_form)
 
             }
         },
