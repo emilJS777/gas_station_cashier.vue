@@ -32,7 +32,7 @@
     export default {
         name: "v-create-cash-box",
         computed: mapState({
-            permissions: state => state.permission.permissions
+            permissions: state => state.auth.profile.permissions
         }),
         data(){
             return{

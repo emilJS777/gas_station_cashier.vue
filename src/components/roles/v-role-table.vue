@@ -49,7 +49,7 @@
     export default {
         name: "v-role-table",
         computed: mapState({
-            permissions: state => state.permission.permissions
+          permissions: state => state.auth.profile.permissions
         }),
         data(){
             return{

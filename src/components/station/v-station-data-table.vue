@@ -132,7 +132,7 @@
         components: {Datepicker},
         props: ['cash_box'],
         computed: mapState({
-            permissions: state => state.permission.permissions
+          permissions: state => state.auth.profile.permissions
         }),
         data(){
             return{

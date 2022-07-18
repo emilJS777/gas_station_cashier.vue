@@ -70,7 +70,7 @@
     export default {
         name: "v-navbar",
         computed: mapState({
-            permissions: state => state.permission.permissions
+          permissions: state => state.auth.profile.permissions
         }),
         data(){
             return{

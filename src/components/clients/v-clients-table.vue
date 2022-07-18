@@ -41,7 +41,7 @@
     export default {
         name: "v-clients-table",
         computed: mapState({
-            permissions: state => state.permission.permissions
+            permissions: state => state.auth.profile.permissions
         }),
         data(){
             return{

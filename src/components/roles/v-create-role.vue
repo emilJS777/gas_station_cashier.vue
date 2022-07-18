@@ -46,7 +46,7 @@
     export default {
         name: "v-create-role",
         computed: mapState({
-            permissions: state => state.permission.permissions
+            permissions: state => state.auth.profile.permissions
         }),
         data(){
             return{

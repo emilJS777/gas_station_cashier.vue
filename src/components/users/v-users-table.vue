@@ -20,7 +20,7 @@
                 <div class="td">{{user.last_name}}</div>
                 <div class="td">{{user.ticket || '-'}}</div>
                 <div class="td">{{user.cash_box_name || '-'}}</div>
-                <div class="td"><span v-for="role in user.roles" :key="role.id">{{role[0] ? role[0].name : '-'}}</span></div>
+                <div class="td">{{user.role_name}}</div>
                 <div class="td">{{user.creation_date}}</div>
 
 
@@ -53,7 +53,7 @@
         name: "v-users-table",
         components: {VUserImage},
         computed: mapState({
-            permissions: state => state.permission.permissions
+          permissions: state => state.auth.profile.permissions
         }),
         data(){
             return{
@@ -75,22 +75,24 @@
             },
             get_roles_by_user_id(){
                 this.users.forEach(user => {
-                    user.roles = []
-                    this.$store.dispatch("user_role/GET_ROLES_BY_USER_ID", user.id).then(data => {
-                        if(data.success) {
-                            user.roles.push(data.obj)
-                        }
+                    // user.roles = []
+                    // this.$store.dispatch("user_role/GET_ROLES_BY_USER_ID", user.id).then(data => {
+                    //     if(data.success) {
+                    //         user.role = data.obj
+                    //       console.log(data.obj)
+                    //     }
+                    // })
+                  this.get_role_by_id(user.id, user.role_id)
+                })
+            },
+            get_role_by_id(user_id, role_id){
+                this.$store.dispatch("role/GET_ROLE_BY_ID", role_id).then(data => {
+                    this.users.forEach(user => {
+                        if(user.id === user_id)
+                            user.role_name = data.obj.name
                     })
                 })
             },
-            // get_role_by_id(user_id, role_id){
-            //     this.$store.dispatch("role/GET_ROLE_BY_ID", role_id).then(data => {
-            //         this.users.forEach(user => {
-            //             if(user.id === user_id)
-            //                 user.roles.push(data.obj.name)
-            //         })
-            //     })
-            // },
             get_cash_box_by_id(){
                 this.users.forEach(user => {
                     if(user.cash_box_id){
