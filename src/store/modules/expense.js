@@ -8,7 +8,7 @@ const expense = {
             return data
         },
         async GET_ALL_EXPENSES(context, date){
-            const data = await request.actions.REQUEST(context, "/expense?date="+date, "GET")
+            const data = await request.actions.REQUEST(context, "/expense?date="+date.date+"&cash_box_id="+date.cash_box_id, "GET")
             return data
         }
     }

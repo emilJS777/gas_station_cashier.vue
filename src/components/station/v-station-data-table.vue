@@ -222,8 +222,7 @@
             get_expenses(date) {
                 this.total_expense = 0
 
-
-                this.$store.dispatch("expense/GET_ALL_EXPENSES", date).then(data => {
+                this.$store.dispatch("expense/GET_ALL_EXPENSES", {date: date, cash_box_id: this.cash_box.id}).then(data => {
                     if (data.success) {
                         this.expenses = data.obj
 

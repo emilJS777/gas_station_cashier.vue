@@ -56,7 +56,7 @@
             }
         },
         mounted(){
-            this.cash_box_id = this.cash_box.id
+            this.expense_form.cash_box_id = this.cash_box.id
         },
         methods: {
             expense_setting_toggle(){
